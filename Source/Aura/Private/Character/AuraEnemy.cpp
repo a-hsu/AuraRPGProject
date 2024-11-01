@@ -3,3 +3,7 @@
 
 #include "Character/AuraEnemy.h"
 
+AAuraEnemy::AAuraEnemy()
+{
+	
+}
