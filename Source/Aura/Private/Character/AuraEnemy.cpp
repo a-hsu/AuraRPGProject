@@ -7,3 +7,11 @@ AAuraEnemy::AAuraEnemy()
 {
 	
 }
+
+void AAuraEnemy::HighlightActor()
+{
+}
+
+void AAuraEnemy::UnHighlightActor()
+{
+}

@@ -13,6 +13,10 @@ UCLASS()
 class AURA_API AAuraCharacter : public AAuraCharacterBase
 {
 	GENERATED_BODY()
-	
+
 	AAuraCharacter();
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aura")
+	float RotationRate;
 };
