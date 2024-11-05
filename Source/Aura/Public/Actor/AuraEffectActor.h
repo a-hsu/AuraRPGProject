@@ -23,7 +23,7 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass);
 	
-	UPROPERTY(EditAnywhere, Category = "Applied Effects")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Applied Effects")
 	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
 
 private:
