@@ -21,7 +21,6 @@ public:
 	AAuraPlayerState();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; };
 	virtual UAttributeSet* GetAttributeSet() const { return AttributeSet; };
-	
 
 protected:
 	UPROPERTY()
@@ -29,7 +28,4 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
-
-
-	
 };
