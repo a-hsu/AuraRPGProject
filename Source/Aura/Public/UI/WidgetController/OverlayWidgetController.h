@@ -13,5 +13,4 @@ UCLASS()
 class AURA_API UOverlayWidgetController : public UAuraWidgetController
 {
 	GENERATED_BODY()
-	
 };

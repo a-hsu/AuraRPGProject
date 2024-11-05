@@ -16,7 +16,7 @@ class AURA_API UAuraUserWidget : public UUserWidget
 
 public:
 	void SetWidgetController(UObject* InWidgetController);
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UObject> WidgetController;
 

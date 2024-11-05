@@ -18,10 +18,9 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase
 
 public:
 	virtual void PossessedBy(AController* NewController) override;
-	
+
 	virtual void OnRep_PlayerState() override;
-	
-	
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aura")
 	float RotationRate;

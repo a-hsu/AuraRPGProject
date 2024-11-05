@@ -26,10 +26,10 @@ void AAuraPlayerController::BeginPlay()
 	// Input SubSystem
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
 		GetLocalPlayer());
-	
-	if(Subsystem)
+
+	if (Subsystem)
 	{
-		Subsystem->AddMappingContext(AuraContext, 0);	
+		Subsystem->AddMappingContext(AuraContext, 0);
 	}
 
 	// Cursor Settings
@@ -105,5 +105,4 @@ void AAuraPlayerController::CursorTrace()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Both actors are the same"));
 	}
-
 }
