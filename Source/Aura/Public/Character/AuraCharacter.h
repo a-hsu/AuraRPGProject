@@ -26,5 +26,5 @@ protected:
 	float RotationRate;
 
 private:
-	void InitAbilityActorInfo();
+	virtual void InitAbilityActorInfo() override;
 };
