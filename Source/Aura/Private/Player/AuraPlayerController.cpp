@@ -97,12 +97,4 @@ void AAuraPlayerController::CursorTrace()
 		if (LastActor) LastActor->UnHighlightActor();
 		if (ThisActor) ThisActor->HighlightActor();
 	}
-	else if (!LastActor && !ThisActor)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Both actors null"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Both actors are the same"));
-	}
 }

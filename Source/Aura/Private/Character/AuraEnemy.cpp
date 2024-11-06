@@ -20,8 +20,6 @@ AAuraEnemy::AAuraEnemy()
 
 void AAuraEnemy::HighlightActor()
 {
-	UE_LOG(LogTemp, Error, TEXT("Highlighting Actor"))
-
 	GetMesh()->SetRenderCustomDepth(true);
 	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 	Weapon->SetRenderCustomDepth(true);
@@ -30,7 +28,6 @@ void AAuraEnemy::HighlightActor()
 
 void AAuraEnemy::UnHighlightActor()
 {
-	UE_LOG(LogTemp, Error, TEXT("Highlighting Actor"))
 	GetMesh()->SetRenderCustomDepth(false);
 	Weapon->SetRenderCustomDepth(false);
 }
