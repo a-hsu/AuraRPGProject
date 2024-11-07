@@ -34,12 +34,14 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		{
 			for (const FGameplayTag& Tag : AssetTags)
 			{
-				// TODO: Broadcast the tag to the widget controller
-				const FString Message = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
-				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Message);
+				// "A.1".MatchesTag("A") will return True, "A".MatchesTag("A.1") will return False
+				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
 
+				if(!Tag.MatchesTag(MessageTag)) return;
+				
 				// Supply the data table and tag and retrieve the row
 				FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+				MessageWidgetRowDelegate.Broadcast(*Row);
 			}
 		});
 }
