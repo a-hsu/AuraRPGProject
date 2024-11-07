@@ -70,5 +70,6 @@ protected:
 template <typename T>
 T* UOverlayWidgetController::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)
 {
+	// Based on the tag provided, get the Row from a data table
 	return DataTable->FindRow<T>(Tag.GetTagName(), TEXT(""));
 }
