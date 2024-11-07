@@ -20,6 +20,11 @@ void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimePropert
 
 	// Registering health to be replicated, with no conditions, if value is set on server, then replicate it,
 	// and the client will show the replicated value and set it
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Strength, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Resilience, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Vigor, COND_None, REPNOTIFY_Always);
+
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Mana, COND_None, REPNOTIFY_Always);
@@ -54,7 +59,6 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	{
 		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
 	}
-
 }
 
 void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
@@ -81,30 +85,50 @@ void UAuraAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) 
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, MaxMana, OldMaxMana);
 }
 
+void UAuraAttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Strength, OldStrength);
+}
+
+void UAuraAttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Intelligence, OldIntelligence);
+}
+
+void UAuraAttributeSet::OnRep_Resilience(const FGameplayAttributeData& OldResilience) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Resilience, OldResilience);
+}
+
+void UAuraAttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Vigor, OldVigor);
+}
+
 void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const
 {
-	
 	Props.EffectContextHandle = Data.EffectSpec.GetContext();
 	Props.SourceASC = Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent();
 
-	if(IsValid(Props.SourceASC) && Props.SourceASC->AbilityActorInfo.IsValid() && Props.SourceASC->AbilityActorInfo->AvatarActor.IsValid())
+	if (IsValid(Props.SourceASC) && Props.SourceASC->AbilityActorInfo.IsValid() && Props.SourceASC->AbilityActorInfo->AvatarActor.
+		IsValid())
 	{
 		Props.SourceAvatarActor = Props.SourceASC->AbilityActorInfo->AvatarActor.Get();
 		Props.SourceController = Props.SourceASC->AbilityActorInfo->PlayerController.Get();
-		if(Props.SourceController == nullptr && Props.SourceAvatarActor != nullptr)
+		if (Props.SourceController == nullptr && Props.SourceAvatarActor != nullptr)
 		{
-			if(const APawn* Pawn = Cast<APawn>(Props.SourceAvatarActor))
+			if (const APawn* Pawn = Cast<APawn>(Props.SourceAvatarActor))
 			{
 				Props.SourceController = Pawn->GetController();
 			}
 		}
-		if(Props.SourceController)
+		if (Props.SourceController)
 		{
 			Props.SourceCharacter = Cast<ACharacter>(Props.SourceController->GetPawn());
 		}
 	}
 
-	if(Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
+	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
 	{
 		Props.TargetAvatarActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
 		Props.TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
