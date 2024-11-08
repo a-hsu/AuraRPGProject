@@ -21,6 +21,10 @@ public:
 
 	virtual void OnRep_PlayerState() override;
 
+	//~ Begin CombatInterface
+	virtual int32 GetPlayerLevel() override;
+	//~ End CombatInterface
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aura")
 	float RotationRate;
