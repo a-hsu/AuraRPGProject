@@ -43,6 +43,11 @@ struct FEffectProperties
 	FGameplayEffectContextHandle EffectContextHandle;
 };
 
+// typedef is specific to the FGameplayAttribute signature but TStaticFuncPtr is generic to any signature
+// typedef TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr FAttributeFuncPtr;
+template<class T>
+using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet
 {
@@ -56,6 +61,8 @@ public:
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
 
 	/*
 	 * Primary Attributes
@@ -76,7 +83,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Vigor, Category = "Primary Attributes")
 	FGameplayAttributeData Vigor;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Vigor);
-	
+
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Agility, Category = "Primary Attributes")
 	FGameplayAttributeData Agility;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Agility);
@@ -132,11 +139,11 @@ public:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMana, Category = "Secondary Attributes")
 	FGameplayAttributeData MaxMana;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxMana);
-	
+
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxStamina, Category = "Secondary Attributes")
 	FGameplayAttributeData MaxStamina;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxStamina);
-	
+
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_AttackSpeed, Category = "Secondary Attributes")
 	FGameplayAttributeData AttackSpeed;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, AttackSpeed)
@@ -160,7 +167,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MagicResist, Category = "Secondary Attributes")
 	FGameplayAttributeData MagicResist;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MagicResist);
-	
+
 	/*
 	 * Vital Attributes
 	 */
@@ -171,7 +178,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Mana, Category = "Vital Attributes")
 	FGameplayAttributeData Mana;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Mana);
-	
+
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Stamina, Category = "Vital Attributes")
 	FGameplayAttributeData Stamina;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Stamina);
@@ -190,7 +197,7 @@ public:
 	void OnRep_Agility(const FGameplayAttributeData& OldAgility) const;
 	UFUNCTION()
 	void OnRep_Wisdom(const FGameplayAttributeData& OldWisdom) const;
-	
+
 	// **** Secondary Attribute OnRep
 	UFUNCTION()
 	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
@@ -237,7 +244,6 @@ public:
 	void OnRep_Mana(const FGameplayAttributeData& OldMana) const;
 	UFUNCTION()
 	void OnRep_Stamina(const FGameplayAttributeData& OldStamina) const;
-
 
 private:
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
