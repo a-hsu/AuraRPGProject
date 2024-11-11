@@ -61,7 +61,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.Attributes_Secondary_CritChance = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		TAG_Secondary_CritChance, "Chance to deal critical damage");
 	GameplayTags.Attributes_Secondary_CritDamage = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		TAG_Secondary_CritDamage, "Increases critical damage multiplier");
+		TAG_Secondary_CritDamage, "Critical Damage multiplier");
 	GameplayTags.Attributes_Secondary_CritResist = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		TAG_Secondary_CritResist, "Reduces incoming critical damage");
 	GameplayTags.Attributes_Secondary_HealthRegen = UGameplayTagsManager::Get().AddNativeGameplayTag(
