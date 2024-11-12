@@ -119,6 +119,7 @@ void AAuraPlayerController::AbilityInputTagPressed(const FGameplayTag InputTag)
 {
 	if (InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_RMB))
 	{
+		// Check if player is targeting ThisActor (hovering over ThisActor). If true, then don't move and instead, attack the enemy.
 		bTargeting = ThisActor ? true : false;
 		bAutoRunning = false;
 	}
@@ -149,7 +150,7 @@ void AAuraPlayerController::AbilityInputTagReleased(const FGameplayTag InputTag)
 				{
 					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
 				}
-				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+				if(NavPath->PathPoints.Num()) CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
 				bAutoRunning = true;
 			}
 		}
