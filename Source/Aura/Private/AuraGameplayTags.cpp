@@ -33,6 +33,13 @@ DEFINE_GAMEPLAY_TAG(TAG_Vital_Health, "Attributes.Vital.Health");
 DEFINE_GAMEPLAY_TAG(TAG_Vital_Mana, "Attributes.Vital.Mana");
 DEFINE_GAMEPLAY_TAG(TAG_Vital_Stamina, "Attributes.Vital.Stamina");
 
+DEFINE_GAMEPLAY_TAG(TAG_Input_LMB,  "InputTag.LMB");
+DEFINE_GAMEPLAY_TAG(TAG_Input_RMB,  "InputTag.RMB");
+DEFINE_GAMEPLAY_TAG(TAG_Input_1,	"InputTag.1");
+DEFINE_GAMEPLAY_TAG(TAG_Input_2,	"InputTag.2");
+DEFINE_GAMEPLAY_TAG(TAG_Input_3,	"InputTag.3");
+DEFINE_GAMEPLAY_TAG(TAG_Input_4,	"InputTag.4");
+
 FAuraGameplayTags FAuraGameplayTags::GameplayTags;
 
 void FAuraGameplayTags::InitializeNativeGameplayTags()
@@ -94,4 +101,19 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		TAG_Vital_Mana, "Current mana of the unit");
 	GameplayTags.Attributes_Vital_Stamina = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		TAG_Vital_Stamina, "Current stamina of the unit");
+
+	// Input Tags
+	GameplayTags.InputTag_LMB = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		TAG_Input_LMB, FString("Input Tag for Left Mouse Button"));
+	GameplayTags.InputTag_RMB = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		TAG_Input_RMB, FString("Input Tag for Right Mouse Button"));
+	GameplayTags.InputTag_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		TAG_Input_1, FString("Input Tag for 1 Key"));
+	GameplayTags.InputTag_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		TAG_Input_2, FString("Input Tag for 2 Key"));
+	GameplayTags.InputTag_3 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		TAG_Input_3, FString("Input Tag for 3 Key"));
+	GameplayTags.InputTag_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		TAG_Input_4, FString("Input Tag for 4 Key"));
+	
 }
