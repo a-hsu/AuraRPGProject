@@ -35,6 +35,7 @@ DEFINE_GAMEPLAY_TAG(TAG_Vital_Stamina, "Attributes.Vital.Stamina");
 
 DEFINE_GAMEPLAY_TAG(TAG_Input_LMB,  "InputTag.LMB");
 DEFINE_GAMEPLAY_TAG(TAG_Input_RMB,  "InputTag.RMB");
+DEFINE_GAMEPLAY_TAG(TAG_Input_AttackMoveClick,  "InputTag.AttackMoveClick");
 DEFINE_GAMEPLAY_TAG(TAG_Input_1,	"InputTag.1");
 DEFINE_GAMEPLAY_TAG(TAG_Input_2,	"InputTag.2");
 DEFINE_GAMEPLAY_TAG(TAG_Input_3,	"InputTag.3");
@@ -107,6 +108,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		TAG_Input_LMB, FString("Input Tag for Left Mouse Button"));
 	GameplayTags.InputTag_RMB = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		TAG_Input_RMB, FString("Input Tag for Right Mouse Button"));
+	GameplayTags.InputTag_AttackMoveClick = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		TAG_Input_AttackMoveClick, FString("Input Tag for Attack Move Click"));
 	GameplayTags.InputTag_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		TAG_Input_1, FString("Input Tag for 1 Key"));
 	GameplayTags.InputTag_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(
