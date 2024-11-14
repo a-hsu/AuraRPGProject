@@ -18,21 +18,30 @@ void UTargetDataUnderMouse::Activate()
 	if (bIsLocallyControlled) SendMouseCursorData();
 
 	// TODO: We are on the server, so listen for target data
+	else
+	{
+		const FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle();
+		const FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
+		AbilitySystemComponent.Get()->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).
+		                       AddUObject(this, &UTargetDataUnderMouse::OnTargetDataReplicatedCallback);
+
+		if (const bool bCalledDelegate = AbilitySystemComponent.Get()->CallReplicatedTargetDataDelegatesIfSet(
+			SpecHandle, ActivationPredictionKey); !bCalledDelegate)
+		{
+			SetWaitingOnRemotePlayerData();
+		}
+	}
 }
 
 // Call if locally controlled
 void UTargetDataUnderMouse::SendMouseCursorData()
 {
 	FScopedPredictionWindow ScopedPrediction(AbilitySystemComponent.Get());
-	
+
 	FGameplayAbilityTargetData_SingleTargetHit* Data = new FGameplayAbilityTargetData_SingleTargetHit();
 	FHitResult CursorHit;
 	Ability->GetCurrentActorInfo()->PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	Data->HitResult = CursorHit;
-
-	void ServerSetReplicatedTargetData(FGameplayAbilitySpecHandle AbilityHandle, FPredictionKey AbilityOriginalPredictionKey,
-	                                   const FGameplayAbilityTargetDataHandle& ReplicatedTargetDataHandle,
-	                                   FGameplayTag ApplicationTag, FPredictionKey CurrentPredictionKey);
 
 	FGameplayAbilityTargetDataHandle DataHandle;
 	DataHandle.Add(Data);
@@ -46,7 +55,18 @@ void UTargetDataUnderMouse::SendMouseCursorData()
 		AbilitySystemComponent->ScopedPredictionKey
 	);
 
-	if(ShouldBroadcastAbilityTaskDelegates())
+	if (ShouldBroadcastAbilityTaskDelegates())
+	{
+		ValidData.Broadcast(DataHandle);
+	}
+}
+
+void UTargetDataUnderMouse::OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& DataHandle,
+                                                           FGameplayTag ActivationTag)
+{
+	AbilitySystemComponent->ConsumeClientReplicatedTargetData(GetAbilitySpecHandle(), GetActivationPredictionKey());
+	
+	if (ShouldBroadcastAbilityTaskDelegates())
 	{
 		ValidData.Broadcast(DataHandle);
 	}

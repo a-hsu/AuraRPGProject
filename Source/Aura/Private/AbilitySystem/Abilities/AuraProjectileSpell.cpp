@@ -15,19 +15,18 @@ void UAuraProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 
 }
 
-void UAuraProjectileSpell::SpawnProjectile()
+void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocation)
 {
-	
-	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
-	if (!bIsServer) return;
+	if (const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority(); !bIsServer) return;
 
-	ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetAvatarActorFromActorInfo());
-	if (CombatInterface)
+	if (ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetAvatarActorFromActorInfo()))
 	{
 		const FVector SocketLocation = CombatInterface->GetCombatSocketLocation();
+		FRotator Rotation = (ProjectileTargetLocation - SocketLocation).Rotation();
+		Rotation.Pitch = 0.f;
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(SocketLocation);
-
+		SpawnTransform.SetRotation(Rotation.Quaternion());
 		// TODO: Set Projectile Rotation
 		// TriggerEventData->EventTag.MatchesTag()
 		AAuraProjectile* Projectile = GetWorld()->SpawnActorDeferred<AAuraProjectile>(
@@ -39,5 +38,8 @@ void UAuraProjectileSpell::SpawnProjectile()
 		// TODO: Give the Projectile a GameplayEffectSpec for causing Damage 
 		
 		Projectile->FinishSpawning(SpawnTransform);
+	} else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Combat Interface not found on [%s]"), *GetName())
 	}
 }
