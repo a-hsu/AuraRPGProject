@@ -4,6 +4,11 @@
 #include "AuraGameplayTags.h"
 #include "GameplayTagsManager.h"
 // Define the Gameplay Tag FName
+
+DEFINE_GAMEPLAY_TAG(TAG_Vital_Health, "Attributes.Vital.Health");
+DEFINE_GAMEPLAY_TAG(TAG_Vital_Mana, "Attributes.Vital.Mana");
+DEFINE_GAMEPLAY_TAG(TAG_Vital_Stamina, "Attributes.Vital.Stamina");
+
 DEFINE_GAMEPLAY_TAG(TAG_Primary_Strength, "Attributes.Primary.Strength");
 DEFINE_GAMEPLAY_TAG(TAG_Primary_Intelligence, "Attributes.Primary.Intelligence");
 DEFINE_GAMEPLAY_TAG(TAG_Primary_Resilience, "Attributes.Primary.Resilience");
@@ -28,10 +33,6 @@ DEFINE_GAMEPLAY_TAG(TAG_Secondary_MagicResist, "Attributes.Secondary.MagicResist
 DEFINE_GAMEPLAY_TAG(TAG_Secondary_LifeSteal, "Attributes.Secondary.LifeSteal");
 DEFINE_GAMEPLAY_TAG(TAG_Secondary_SpellPower, "Attributes.Secondary.SpellPower");
 DEFINE_GAMEPLAY_TAG(TAG_Secondary_MovementSpeed, "Attributes.Secondary.MovementSpeed");
-
-DEFINE_GAMEPLAY_TAG(TAG_Vital_Health, "Attributes.Vital.Health");
-DEFINE_GAMEPLAY_TAG(TAG_Vital_Mana, "Attributes.Vital.Mana");
-DEFINE_GAMEPLAY_TAG(TAG_Vital_Stamina, "Attributes.Vital.Stamina");
 
 DEFINE_GAMEPLAY_TAG(TAG_Input_LMB,  "InputTag.LMB");
 DEFINE_GAMEPLAY_TAG(TAG_Input_RMB,  "InputTag.RMB");
